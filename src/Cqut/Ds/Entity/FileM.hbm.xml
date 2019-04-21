@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-12-13 0:53:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="Cqut.Ds.Entity.FileM" table="FileM">
+        <id name="fileID" type="java.lang.Integer">
+            <column name="fileID" />
+            <generator class="increment" />
+        </id>
+        <property name="fileName" type="java.lang.String">
+            <column name="fileName" />
+        </property>
+        <property name="fileFolder" type="java.lang.String">
+            <column name="fileFolder" />
+        </property>
+        <property name="filePath" type="java.lang.String">
+            <column name="filePath" />
+        </property>
+        <property name="uploadUserName" type="java.lang.String">
+            <column name="uploadUserName" />
+        </property>
+        <property name="fileSize" type="java.lang.String">
+            <column name="fileSize" />
+        </property>
+        <property name="operation" type="java.lang.String">
+            <column name="OPERATION" />
+        </property>
+        <property name="date" type="java.lang.String">
+            <column name="DATE" />
+        </property>
+    </class>
+</hibernate-mapping>

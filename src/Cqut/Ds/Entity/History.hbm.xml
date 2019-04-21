@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-12-13 0:53:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="Cqut.Ds.Entity.History" table="History">
+        <id name="historyID" type="java.lang.Integer">
+            <column name="historyID" />
+            <generator class="increment" />
+        </id>
+        <property name="userName" type="java.lang.String">
+            <column name="userName" />
+        </property>
+        <property name="date" type="java.lang.String">
+            <column name="date" />
+        </property>
+        <property name="operation" type="java.lang.String">
+            <column name="operation" />
+        </property>
+        <property name="fileName" type="java.lang.String" access="field">
+            <column name="fileName" />
+        </property>
+    </class>
+</hibernate-mapping>

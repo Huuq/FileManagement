@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="authority" extends="struts-default">			
+		<!-- 定义一个拦截器 -->
+		<interceptors>
+			<interceptor name="loginInterceptor"
+				class="Cqut.Ds.Interceptor.LoginInterceptor">
+			</interceptor>
+			
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="loginInterceptor" />
+			</interceptor-stack>
+		</interceptors>	
+				
+		<action name="login" class="LoginAction" method="execute">		   
+			<result name="successLogin" type="chain">
+			  <param name="actionName">index</param>	
+			  <param name="user">${user}</param>		 	
+		    </result>		    				
+			<result name="Input">/Register.jsp</result>		
+			<result name="errorLogin">/Login.jsp</result>						
+		</action>	
+			
+		<action name="register" class="RegisterAction" method="execute">
+			<result name="registerSuccess">/Login.jsp</result>
+			<result name="registerFailure">/Register.jsp</result>					
+		</action>	
+		
+		<action name="fileupload" class="FileuploadAction" method="execute">			
+			<result name="uploadFileSuccess" type="chain">
+			  <param name="actionName">index</param>			  
+			</result>
+			<param name="savePath">/upload</param>
+			<result name="uploadFileFailure">/error.jsp</result>
+			<result name="login">/Login.jsp</result>
+			<interceptor-ref name="myStack"/>											
+		</action>
+		
+		<!-- 文件下载 -->
+		<action name="filedownload" class="FileDownloadAction">
+			<result name="downloadFileSuccess" type="stream">
+			<param name="contentType">${contentType}</param>
+			<param name="contentDisposition">attachment;filename=${fileName}</param>
+			<param name="inputName">downloadFile</param>	
+		  </result>
+		  <result name="downloadFileFailure">/error.jsp</result>
+		  <result name="login">/Login.jsp</result>
+		  <interceptor-ref name="myStack"/>
+		</action>	
+		
+		<!-- 历史纪录导出 -->
+		<action name="downloadhistory" class="downloadHistoryAction">
+			<result name="historySuccess" type="stream">
+				<param name="contentType">docx</param>	
+				<param name="contentDisposition">attachment;historyFileName="历史纪录.docx"</param>		
+				<param name="inputName">downloadFile</param>	
+		    </result>	
+		    <result name="login">/Login.jsp</result>
+		    <interceptor-ref name="myStack"/>
+		</action>			
+		
+		<action name="fileList" class="fileListAction" method="execute">
+			<result name="successFileList">/fileList.jsp</result>
+			<result name="error">/error.jsp</result>								
+		</action>
+		
+		<action name="recyleList" class="RecyleAction" method="execute">
+			<result name="recylistList">/Recyle.jsp</result>
+			<result name="error">/error.jsp</result>								
+		</action>
+		
+		<action name="clearRecycle" class="clearRecycleAction" method="execute">
+			<result name="successClear" type="chain">
+			    <param name="actionName">recyleList</param>
+			</result>
+			<result name="error">/error.jsp</result>								
+		</action>
+		
+		<action name="createNewFile" class="createNewFileAction" method="execute">
+			<result name="CreateSuccess" type="chain">
+			    <param name="actionName">index</param>
+			</result>
+			<result name="error">/error.jsp</result>								
+		</action>
+		
+		<action name="deleteFile" class="deleteFileAction" method="execute">
+			<result name="success"  type="chain">
+			   <param name="actionName">index</param>
+			</result>
+			<result name="error">/error.jsp</result>								
+		</action>
+		
+		<action name="searchFile" class="searchFileAction" method="execute">
+			<result name="successSearch">/searchList.jsp</result>
+			<result name="error">/error.jsp</result>								
+		</action>
+		
+		<action name="history" class="historyAction" method="execute">
+			<result name="successRecord">/History.jsp</result>
+			<result name="Recorderror">/error.jsp</result>	
+			<result name="login">/Login.jsp</result>												
+		</action>
+		
+		<action name="index" class="Cqut.Ds.Action.IndexAction" method="execute">		
+			<result name="success">/index.jsp</result>	
+			<result name="error">/error.jsp</result>				
+		</action>
+		
+		<action name="fileFolder" class="fileFolderAction" method="execute">		
+			<result name="createSuccess" type="chain">
+			  <param name="actionName">index</param>			  
+			</result>
+			<result name="error">/error.jsp</result>				
+		</action>
+		
+		<action name="updateFileName" class="updateFileNameAction" method="execute">		
+			<result name="createSuccess" type="chain">
+			  <param name="actionName">index</param>			  
+			</result>
+			<result name="error">/error.jsp</result>				
+		</action>
+		
+		<action name="recoverFile" class="recoverFileAction" method="execute">		
+			<result name="successRecover" type="chain">
+			  <param name="actionName">index</param>			  
+			</result>
+			<result name="error">/error.jsp</result>				
+		</action>
+	</package>
+</struts>

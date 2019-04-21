@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-12-13 0:53:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="Cqut.Ds.Entity.User" table="USER">
+        <id name="userName" type="java.lang.String">
+            <column name="userName" />
+            <generator class="increment" />
+        </id>
+        <property name="password" type="java.lang.String">
+            <column name="password" />
+        </property>
+        <property name="nickName" type="java.lang.String">
+            <column name="nickName" />
+        </property>
+    </class>
+</hibernate-mapping>

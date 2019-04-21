@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-12-13 22:45:23 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="Cqut.Ds.Entity.RecycleBin" table="RECYCLEBIN">
+        <id name="recycleID" type="java.lang.Integer">
+            <column name="recycleID" />
+            <generator class="increment" />
+        </id>
+        <property name="fileName" type="java.lang.String">
+            <column name="fileName" />
+        </property>
+        <property name="fileFolder" type="java.lang.String">
+            <column name="fileFolder" />
+        </property>
+        <property name="filePath" type="java.lang.String">
+            <column name="filePath" />
+        </property>
+        <property name="fileSize" type="java.lang.String">
+            <column name="fileSize" />
+        </property>
+        <property name="date" type="java.lang.String">
+            <column name="date" />
+        </property>
+    </class>
+</hibernate-mapping>

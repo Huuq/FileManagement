@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	    http://www.springframework.org/schema/aop
+	        http://www.springframework.org/schema/aop/sping-aop-3.0.xsd">
+	<!-- 定义数据源org.springframework.jdbc.dataSource.DriverManagerDataSource -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<!-- 指定连接数据库的驱动 -->
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<!-- 指定连接数据库的URL -->
+		<property name="url">
+			<value>jdbc:mysql://localhost/design</value>
+		</property>
+
+		<!-- 指定连接数据库的用户名 -->
+		<property name="username">
+			<value>root</value>
+		</property>
+		<!-- 指定连接数据库的密码 -->
+		<property name="password">
+			<value>QYLHJQ526919606</value>
+		</property>	
+	</bean>
+
+	<!-- 定义Hibernare的sessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!-- 依赖注入已配置好的数据源dataSource -->
+		<property name="dataSource">
+			<ref local="dataSource"/>
+		</property>
+		<!-- 指定Hibernate所有映射文件的路径 -->
+		<property name="mappingResources">
+			<list>
+		       <value>Cqut/Ds/Entity/User.hbm.xml</value>	
+		       <value>Cqut/Ds/Entity/FileM.hbm.xml</value>	
+		       <value>Cqut/Ds/Entity/FileFolder.hbm.xml</value>
+		       <value>Cqut/Ds/Entity/History.hbm.xml</value>    
+		       <value>Cqut/Ds/Entity/RecycleBin.hbm.xml</value>  	       
+			</list>
+		</property>
+		<!-- 设置Hibernate的属性 -->
+		<property name="hibernateProperties">
+			<props>
+				<!-- 配置Hibernate的数据库方言 -->
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<!-- 设置是否在控制台输出由Hibernate生成的SQL语句 -->
+				<prop key="show_sql">true</prop>
+			</props>
+		</property>
+	</bean>   
+	
+    <bean id="userDao" class="Cqut.Ds.DaoImpl.UserDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+	    </property>
+	</bean>
+	
+	<bean id="userService" class="Cqut.Ds.ServiceImpl.UserServiceImpl">
+	    <property name="userDao">
+	    <ref local="userDao"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="LoginAction" class="Cqut.Ds.Action.LoginAction">
+	    <property name="userService">
+	    <ref local="userService"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="RegisterAction" class="Cqut.Ds.Action.RegisterAction">
+	    <property name="userService">
+	    <ref local="userService"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="fileDao" class="Cqut.Ds.DaoImpl.FileDaoImpl">
+		<property name="sessionFactory">
+		<ref local="sessionFactory" />
+	</property>
+	</bean>
+	
+	<bean id="fileService" class="Cqut.Ds.ServiceImpl.FileServiceImpl">
+	    <property name="fileDao">
+	    <ref local="fileDao"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="FileuploadAction" class="Cqut.Ds.Action.FileUploadAction">
+	    <property name="fileService">
+	    <ref local="fileService"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="updateFileNameAction" class="Cqut.Ds.Action.UpdateFileNameAction">
+	    <property name="fileService">
+	    <ref local="fileService"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="RecyleAction" class="Cqut.Ds.Action.RecyleBinAction">
+	    <property name="fileService">
+	    <ref local="fileService"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="clearRecycleAction" class="Cqut.Ds.Action.ClearAction">
+	    <property name="fileService">
+	    <ref local="fileService"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="recoverFileAction" class="Cqut.Ds.Action.RecoverFileAction">
+	    <property name="fileService">
+	    <ref local="fileService"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="FileDownloadAction" class="Cqut.Ds.Action.DownloadAction">
+	    <property name="fileService">
+	    <ref local="fileService"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="searchFileAction" class="Cqut.Ds.Action.SearchFileAction">
+	    <property name="fileService">
+	    <ref local="fileService"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="fileListAction" class="Cqut.Ds.Action.FileListAction">
+	    <property name="fileService">
+	      <ref local="fileService"/>
+	    </property>	    
+	</bean>	
+	
+	<bean id="createNewFileAction" class="Cqut.Ds.Action.CreateNewFileAction">
+	    <property name="fileService">
+	      <ref local="fileService"/>
+	    </property>	    
+	</bean>	
+	
+	<bean id="downloadHistoryAction" class="Cqut.Ds.Action.DownloadHistoryAction">
+	    <property name="fileService">
+	      <ref local="fileService"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="deleteFileAction" class="Cqut.Ds.Action.DeleteFileAction">
+	    <property name="fileService">
+	      <ref local="fileService"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="fileFolderDao" class="Cqut.Ds.DaoImpl.FolderDaoImpl">
+		<property name="sessionFactory">
+		  <ref local="sessionFactory" />
+        </property>
+	</bean>
+	
+	<bean id="folderService" class="Cqut.Ds.ServiceImpl.FileFolderServiceImpl">
+	    <property name="fileFolderDao">
+	      <ref local="fileFolderDao"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="fileFolderAction" class="Cqut.Ds.Action.CreateFileFolderAction">
+	    <property name="folderService">
+	    <ref local="folderService"/>
+	    </property>	    
+	</bean>
+	
+    <bean id="historyDao" class="Cqut.Ds.DaoImpl.HistoryDaoImpl">
+		<property name="sessionFactory">
+		  <ref local="sessionFactory" />
+        </property>
+	</bean>
+	
+	<bean id="historyService" class="Cqut.Ds.ServiceImpl.HistoryServiceImpl">
+	    <property name="historyDao">
+	      <ref local="historyDao"/>
+	    </property>	    
+	</bean>
+	
+	<bean id="historyAction" class="Cqut.Ds.Action.HistoryAction">
+	    <property name="historyService">
+	    <ref local="historyService"/>
+	    </property>	    
+	</bean>
+	
+
+</beans>
