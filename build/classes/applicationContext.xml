@@ -24,7 +24,7 @@
 		</property>
 		<!-- 指定连接数据库的密码 -->
 		<property name="password">
-			<value>QYLHJQ526919606</value>
+			<value>1123456</value>
 		</property>	
 	</bean>
 
